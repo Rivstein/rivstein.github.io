@@ -1,9 +1,8 @@
 	/*
   	Flaticon icon font: Flaticon
-  	Creation date: 04/01/2019 13:45
+  	Creation date: 15/10/2018 10:08
   	*/
-
-
+  	
 @font-face {
   font-family: "Flaticon";
   src: url("../fonts/flaticon/font/Flaticon.eot");
@@ -36,7 +35,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.flaticon-adoption:before { content: "\f100"; }
-.flaticon-charity:before { content: "\f101"; }
-.flaticon-volunteer:before { content: "\f102"; }
-.flaticon-open-book:before { content: "\f103"; }
+.flaticon-gym:before { content: "\f100"; }
+.flaticon-running:before { content: "\f101"; }
+.flaticon-workout:before { content: "\f102"; }
+.flaticon-woman:before { content: "\f103"; }
+.flaticon-stationary-bike:before { content: "\f104"; }
+.flaticon-heart:before { content: "\f105"; }
+.flaticon-meditation:before { content: "\f106"; }
+.flaticon-ruler:before { content: "\f107"; }
+.flaticon-abs:before { content: "\f108"; }
+.flaticon-tools-and-utensils:before { content: "\f109"; }
