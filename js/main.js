@@ -1,322 +1,257 @@
- AOS.init({
- 	duration: 800,
- 	easing: 'slide'
- });
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Simply Construction HTML Template.
+  Template URI: #
+  Description: Simply Construction is a unique website template designed in HTML with a simple & beautiful look. There is an excellent solution for creating clean, wonderful and trending material design corporate, corporate any other purposes websites.
+  Author: DevItems
+  Version: 1.0
+
+-----------------------------------------------------------------------------------*/
+
+/*-------------------------------
+[  Table of contents  ]
+---------------------------------
+  01. jQuery MeanMenu
+  02. wow js active
+  03. Project  Masonry
+  04. Sticky Header
+  05. ScrollUp
+  06. Testimonial Slick Carousel
+  07. Testimonial Slick Carousel
+  08. CounterUp
+  16. ScrollReveal Js Init
+  17. Magnific Popup
+
+
+
+
+/*--------------------------------
+[ End table content ]
+-----------------------------------*/
+
 
 (function($) {
-
-	"use strict";
-
-	var isMobile = {
-		Android: function() {
-			return navigator.userAgent.match(/Android/i);
-		},
-			BlackBerry: function() {
-			return navigator.userAgent.match(/BlackBerry/i);
-		},
-			iOS: function() {
-			return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-		},
-			Opera: function() {
-			return navigator.userAgent.match(/Opera Mini/i);
-		},
-			Windows: function() {
-			return navigator.userAgent.match(/IEMobile/i);
-		},
-			any: function() {
-			return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-		}
-	};
+    'use strict';
 
 
-	$(window).stellar({
-    responsive: true,
-    parallaxBackgrounds: true,
-    parallaxElements: true,
-    horizontalScrolling: false,
-    hideDistantElements: false,
-    scrollProperty: 'scroll'
-  });
+/*-------------------------------------------
+  01. jQuery MeanMenu
+--------------------------------------------- */
+    
+$('.mobile-menu nav').meanmenu({
+    meanMenuContainer: '.mobile-menu-area',
+    meanScreenWidth: "991",
+    meanRevealPosition: "right",
+});
+/*-------------------------------------------
+  02. wow js active
+--------------------------------------------- */
+    new WOW().init();
 
 
-	var fullHeight = function() {
+/*-------------------------------------------
+  03. Project  Masonry
+--------------------------------------------- */ 
 
-		$('.js-fullheight').css('height', $(window).height());
-		$(window).resize(function(){
-			$('.js-fullheight').css('height', $(window).height());
-		});
+$('.htc__project__container').imagesLoaded( function() {
+  
+    // filter items on button click
+    $('.project__menu').on( 'click', 'button', function() {
+      var filterValue = $(this).attr('data-filter');
+      $grid.isotope({ filter: filterValue });
+    }); 
+    // init Isotope
+    var $grid = $('.htc__latest__project__wrap').isotope({
+      itemSelector: '.single__project',
+      percentPosition: true,
+      transitionDuration: '0.7s',
+      layoutMode: 'fitRows',
+      masonry: {
+        // use outer width of grid-sizer for columnWidth
+        columnWidth: '.single__project',
+      }
+    });
 
-	};
-	fullHeight();
+});
 
-	// loader
-	var loader = function() {
-		setTimeout(function() { 
-			if($('#ftco-loader').length > 0) {
-				$('#ftco-loader').removeClass('show');
-			}
-		}, 1);
-	};
-	loader();
-
-	// Scrollax
-   $.Scrollax();
-
-	var carousel = function() {
-		$('.carousel-testimony').owlCarousel({
-			autoplay: true,
-			autoHeight: true,
-			center: true,
-			loop: true,
-			items:1,
-			margin: 30,
-			stagePadding: 0,
-			nav: false,
-			dots: true,
-			navText: ['<span class="ion-ios-arrow-back">', '<span class="ion-ios-arrow-forward">'],
-			responsive:{
-				0:{
-					items: 1
-				},
-				600:{
-					items: 1
-				},
-				1000:{
-					items: 1
-				}
-			}
-		});
-		$('.carousel-causes').owlCarousel({
-			autoplay: true,
-			autoHeight: true,
-			center: true,
-			loop: true,
-			items:1,
-			margin: 30,
-			stagePadding: 0,
-			nav: false,
-			dots: true,
-			navText: ['<span class="ion-ios-arrow-back">', '<span class="ion-ios-arrow-forward">'],
-			responsive:{
-				0:{
-					items: 1
-				},
-				600:{
-					items: 3
-				},
-				1000:{
-					items: 5
-				}
-			}
-		});
-	};
-	carousel();
-
-	$('nav .dropdown').hover(function(){
-		var $this = $(this);
-		// 	 timer;
-		// clearTimeout(timer);
-		$this.addClass('show');
-		$this.find('> a').attr('aria-expanded', true);
-		// $this.find('.dropdown-menu').addClass('animated-fast fadeInUp show');
-		$this.find('.dropdown-menu').addClass('show');
-	}, function(){
-		var $this = $(this);
-			// timer;
-		// timer = setTimeout(function(){
-			$this.removeClass('show');
-			$this.find('> a').attr('aria-expanded', false);
-			// $this.find('.dropdown-menu').removeClass('animated-fast fadeInUp show');
-			$this.find('.dropdown-menu').removeClass('show');
-		// }, 100);
-	});
+$('.project__menu button').on('click', function(event) {
+    $(this).siblings('.is-checked').removeClass('is-checked');
+    $(this).addClass('is-checked');
+    event.preventDefault();
+});
 
 
-	$('#dropdown04').on('show.bs.dropdown', function () {
-	  console.log('show');
-	});
 
-	// scroll
-	var scrollWindow = function() {
-		$(window).scroll(function(){
-			var $w = $(this),
-					st = $w.scrollTop(),
-					navbar = $('.ftco_navbar'),
-					sd = $('.js-scroll-wrap');
+/*-------------------------------------------
+  04. Sticky Header
+--------------------------------------------- */ 
 
-			if (st > 150) {
-				if ( !navbar.hasClass('scrolled') ) {
-					navbar.addClass('scrolled');	
-				}
-			} 
-			if (st < 150) {
-				if ( navbar.hasClass('scrolled') ) {
-					navbar.removeClass('scrolled sleep');
-				}
-			} 
-			if ( st > 350 ) {
-				if ( !navbar.hasClass('awake') ) {
-					navbar.addClass('awake');	
-				}
-				
-				if(sd.length > 0) {
-					sd.addClass('sleep');
-				}
-			}
-			if ( st < 350 ) {
-				if ( navbar.hasClass('awake') ) {
-					navbar.removeClass('awake');
-					navbar.addClass('sleep');
-				}
-				if(sd.length > 0) {
-					sd.removeClass('sleep');
-				}
-			}
-		});
-	};
-	scrollWindow();
-
-	var isMobile = {
-		Android: function() {
-			return navigator.userAgent.match(/Android/i);
-		},
-			BlackBerry: function() {
-			return navigator.userAgent.match(/BlackBerry/i);
-		},
-			iOS: function() {
-			return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-		},
-			Opera: function() {
-			return navigator.userAgent.match(/Opera Mini/i);
-		},
-			Windows: function() {
-			return navigator.userAgent.match(/IEMobile/i);
-		},
-			any: function() {
-			return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-		}
-	};
-
-	var counter = function() {
-		
-		$('#section-counter, .hero-wrap, .ftco-counter, .ftco-volunteer').waypoint( function( direction ) {
-
-			if( direction === 'down' && !$(this.element).hasClass('ftco-animated') ) {
-
-				var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
-				$('.number').each(function(){
-					var $this = $(this),
-						num = $this.data('number');
-						console.log(num);
-					$this.animateNumber(
-					  {
-					    number: num,
-					    numberStep: comma_separator_number_step
-					  }, 7000
-					);
-				});
-				
-			}
-
-		} , { offset: '95%' } );
-
-	}
-	counter();
-
-
-	var contentWayPoint = function() {
-		var i = 0;
-		$('.ftco-animate').waypoint( function( direction ) {
-
-			if( direction === 'down' && !$(this.element).hasClass('ftco-animated') ) {
-				
-				i++;
-
-				$(this.element).addClass('item-animate');
-				setTimeout(function(){
-
-					$('body .ftco-animate.item-animate').each(function(k){
-						var el = $(this);
-						setTimeout( function () {
-							var effect = el.data('animate-effect');
-							if ( effect === 'fadeIn') {
-								el.addClass('fadeIn ftco-animated');
-							} else if ( effect === 'fadeInLeft') {
-								el.addClass('fadeInLeft ftco-animated');
-							} else if ( effect === 'fadeInRight') {
-								el.addClass('fadeInRight ftco-animated');
-							} else {
-								el.addClass('fadeInUp ftco-animated');
-							}
-							el.removeClass('item-animate');
-						},  k * 50, 'easeInOutExpo' );
-					});
-					
-				}, 100);
-				
-			}
-
-		} , { offset: '95%' } );
-	};
-	contentWayPoint();
-
-
-	// navigation
-	var OnePageNav = function() {
-		$(".smoothscroll[href^='#'], #ftco-nav ul li a[href^='#']").on('click', function(e) {
-		 	e.preventDefault();
-
-		 	var hash = this.hash,
-		 			navToggler = $('.navbar-toggler');
-		 	$('html, body').animate({
-		    scrollTop: $(hash).offset().top
-		  }, 700, 'easeInOutExpo', function(){
-		    window.location.hash = hash;
-		  });
-
-
-		  if ( navToggler.is(':visible') ) {
-		  	navToggler.click();
-		  }
-		});
-		$('body').on('activate.bs.scrollspy', function () {
-		  console.log('nice');
-		})
-	};
-	OnePageNav();
-
-
-	// magnific popup
-	$('.image-popup').magnificPopup({
-    type: 'image',
-    closeOnContentClick: true,
-    closeBtnInside: false,
-    fixedContentPos: true,
-    mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
-     gallery: {
-      enabled: true,
-      navigateByImgClick: true,
-      preload: [0,1] // Will preload 0 - before current, and 1 after the current image
-    },
-    image: {
-      verticalFit: true
-    },
-    zoom: {
-      enabled: true,
-      duration: 300 // don't foget to change the duration also in CSS
+  $(window).on('scroll',function() {    
+    var scroll = $(window).scrollTop();
+    if (scroll < 245) {
+    $("#sticky-header-with-topbar").removeClass("scroll-header");
+    }else{
+    $("#sticky-header-with-topbar").addClass("scroll-header");
     }
   });
 
-  $('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
-    disableOn: 700,
-    type: 'iframe',
-    mainClass: 'mfp-fade',
-    removalDelay: 160,
-    preloader: false,
 
-    fixedContentPos: false
+/*--------------------------
+  05. ScrollUp
+---------------------------- */
+
+  $.scrollUp({
+    scrollText: '<i class="zmdi zmdi-chevron-up"></i>',
+    easingType: 'linear',
+    scrollSpeed: 900,
+    animation: 'fade'
   });
 
 
+/*---------------------------------------------
+  06. Testimonial Slick Carousel
+------------------------------------------------*/
+  $('.testimonial__activation').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    draggable: true,
+    // fade: true,
+    dots: true,
+  });
+
+
+/*------------------------------------------
+  07. Testimonial Slick Carousel
+-------------------------------------------*/
+  $('.testimonial__activation--2').slick({
+    slidesToShow: 2,
+    slidesToScroll: 2,
+    arrows: false,
+    draggable: true,
+    // fade: true,
+    dots: true,
+  });
+
+
+
+/*-----------------------------
+  08. CounterUp
+-----------------------------*/
+  $('.count').counterUp({
+    delay: 60,
+    time: 3000
+  });
+
+
+
+
+
+
+/*-----------------------------------------------
+  15. Home Slider
+-------------------------------------------------*/
+
+  if ($('.slider__activation__wrap').length) {
+    $('.slider__activation__wrap').owlCarousel({
+      loop: true,
+      margin:0,
+      nav:true,
+      autoplay: false,
+      navText: [ '<i class="zmdi zmdi-chevron-left"></i>', '<i class="zmdi zmdi-chevron-right"></i>' ],
+      autoplayTimeout: 10000,
+      items:1,
+      dots: false,
+      lazyLoad: true,
+      responsive:{
+        0:{
+          items:1
+        },
+        600:{
+          items:1
+        }
+      }
+    });
+  }
+
+
+
+/*-----------------------------------
+  16. ScrollReveal Js Init
+-------------------------------------- */
+
+  window.sr = ScrollReveal({ duration: 800 , reset: false });
+    sr.reveal('.foo');
+    sr.reveal('.bar');
+
+
+
+
+
+
+/*--------------------------------
+  17. Magnific Popup
+----------------------------------*/
+
+$('.video-popup').magnificPopup({
+  type: 'iframe',
+  mainClass: 'mfp-fade',
+  removalDelay: 160,
+  preloader: false,
+  zoom: {
+      enabled: true,
+  }
+});
+
+$('.image-popup').magnificPopup({
+  type: 'image',
+  mainClass: 'mfp-fade',
+  removalDelay: 100,
+  gallery:{
+      enabled:true, 
+  }
+});
+
+
+
+
+
+
+/*-----------------------------------------------
+  16. Blog Slider
+-------------------------------------------------*/
+
+  if ($('.blog__activation').length) {
+    $('.blog__activation').owlCarousel({
+      loop: true,
+      margin:0,
+      nav:true,
+      autoplay: false,
+      navText: [ '<i class="zmdi zmdi-chevron-left"></i>', '<i class="zmdi zmdi-chevron-right"></i>' ],
+      autoplayTimeout: 10000,
+      items:1,
+      dots: false,
+      lazyLoad: true,
+      responsive:{
+        0:{
+          items:1
+        },
+        600:{
+          items:1
+        }
+      }
+    });
+  }
+
+
+
+
+
+
+
+
 })(jQuery);
+
+
+
 
